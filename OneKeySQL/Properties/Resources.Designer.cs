@@ -22,7 +22,7 @@ namespace OneKeySQL.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace OneKeySQL.Properties {
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OneKeySQL.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,77 @@ namespace OneKeySQL.Properties {
         ///   重写当前线程的 CurrentUICulture 属性。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 INSERT [GameGameItem] VALUES(	200	,&apos;斗地主&apos;	,	31	,&apos;127.0.0.1&apos;	,&apos;RYGameScoreDB&apos;	,	101122049	,	101122049	,&apos;LandServer.DLL&apos;	,&apos;Land.EXE&apos;	)
+        ///INSERT [GameGameItem] VALUES(	6	,&apos;诈金花&apos;	,	0	,&apos;127.0.0.1&apos;	,&apos;RYTreasureDB&apos;	,	101122049	,	101122049	,&apos;ZaJinHuaServer.DLL&apos;	,&apos;ZaJinHua.EXE&apos;	)
+        ///INSERT [GameGameItem] VALUES(	122	,&apos;新百家乐&apos;	,	0	,&apos;127.0.0.1&apos;	,&apos;RYTreasureDB&apos;	,	101122049	,	101122049	,&apos;BaccaratNewServer.DLL&apos;	,&apos;BaccaratNew.EXE&apos;	)
+        ///INSERT [GameGameItem] VALUES(	1	,&apos;筹码梭哈&apos;	,	21	,&apos;127.0.0.1&apos;	,&apos;RYTreasureDB&apos;	,	101122049	,	10112204 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        public static string GameGameItem {
+            get {
+                return ResourceManager.GetString("GameGameItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 INSERT [GameKindItem] VALUES(	200	,200,6,0,0,&apos;斗地主&apos;,&apos;Land.EXE&apos;,&apos;&apos;,&apos;&apos;,0,0,0	)
+        ///INSERT [GameKindItem] VALUES(	6,6,1,0,0,&apos;诈金花&apos;,&apos;ZaJinHua.EXE&apos;,&apos;&apos;,&apos;&apos;,0,0,0	)
+        ///INSERT [GameKindItem] VALUES(	122	,122,3,0,0,&apos;新百家乐&apos;,&apos;BaccaratNew.EXE&apos;,&apos;&apos;,&apos;&apos;,0,0,0	)
+        ///INSERT [GameKindItem] VALUES(	1,1,1,0,0,&apos;筹码梭哈&apos;	,&apos;ShowHandCM.exe&apos;,&apos;&apos;,&apos;&apos;,0,0,0	)
+        ///INSERT [GameKindItem] VALUES(	2,2,1,0,0,&apos;数字五张&apos;,&apos;HKFiveCardSZ.exe&apos;,&apos;&apos;,&apos;&apos;,0,0,0	)
+        ///INSERT [GameKindItem] VALUES(	3,3,1,0,0,&apos;德州扑克&apos;,&apos;DZShowHand.exe&apos;,&apos;&apos;,&apos;&apos;,0,0,0	)
+        ///INSERT [GameKindItem] VALUES(	4,4, [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        public static string GameKindItem {
+            get {
+                return ResourceManager.GetString("GameKindItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 INSERT [MobileKindItem] VALUES (	6	,	&apos;诈金花&apos;	,	0	,	&apos;yule.zhajinhua&apos;	,	101122049	,	0	,	0	,	3	,	0	)
+        ///INSERT [MobileKindItem] VALUES (	7	,	&apos;十三水&apos;	,	0	,	&apos;qipai.thirteen&apos;	,	101122049	,	0	,	4	,	3	,	0	)
+        ///INSERT [MobileKindItem] VALUES (	25	,	&apos;港式五张&apos;	,	0	,	&apos;yule.hkfivecardnew&apos;	,	101122049	,	0	,	2	,	3	,	0	)
+        ///INSERT [MobileKindItem] VALUES (	27	,	&apos;牛牛&apos;	,	0	,	&apos;yule.oxnew&apos;	,	101122049	,	0	,	3	,	3	,	0	)
+        ///INSERT [MobileKindItem] VALUES (	36	,	&apos;通比牛牛&apos;	,	0	,	&apos;yule.oxsixex&apos;	,	101122049	,	0	,	1	,	3	,	0	)
+        ///INSERT [MobileKindItem] V [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        public static string MobileKindItem {
+            get {
+                return ResourceManager.GetString("MobileKindItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 INSERT [MobileKindItem] VALUES (	6	,	&apos;诈金花&apos;	,	0	,	&apos;yule.zhajinhua&apos;	,	101122049	,	0	,	0	,	3	,	0	,&apos;&apos;)
+        ///INSERT [MobileKindItem] VALUES (	7	,	&apos;十三水&apos;	,	0	,	&apos;qipai.thirteen&apos;	,	101122049	,	0	,	4	,	3	,	0	,&apos;&apos;)
+        ///INSERT [MobileKindItem] VALUES (	25	,	&apos;港式五张&apos;	,	0	,	&apos;yule.hkfivecardnew&apos;	,	101122049	,	0	,	2	,	3	,	0	,&apos;&apos;)
+        ///INSERT [MobileKindItem] VALUES (	27	,	&apos;牛牛&apos;	,	0	,	&apos;yule.oxnew&apos;	,	101122049	,	0	,	3	,	3	,	0	,&apos;&apos;)
+        ///INSERT [MobileKindItem] VALUES (	36	,	&apos;通比牛牛&apos;	,	0	,	&apos;yule.oxsixex&apos;	,	101122049	,	0	,	1	,	3	,	0	,&apos;&apos;)
+        ///INSERT [Mo [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        public static string MobileKindItemJJ {
+            get {
+                return ResourceManager.GetString("MobileKindItemJJ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        public static System.Drawing.Icon Only {
+            get {
+                object obj = ResourceManager.GetObject("Only", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }

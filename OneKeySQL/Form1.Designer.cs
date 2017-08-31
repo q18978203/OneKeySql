@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.label_databaseuser = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tb_dbuser = new System.Windows.Forms.TextBox();
@@ -35,24 +36,22 @@
             this.btn_connet = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.tb_DBAddr = new System.Windows.Forms.TextBox();
-            this.tb_GameName = new System.Windows.Forms.TextBox();
             this.tb_log = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.tb_DBName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.dataSet1 = new System.Data.DataSet();
-            this.dataTable1 = new System.Data.DataTable();
-            this.dataColumn1 = new System.Data.DataColumn();
-            this.dataColumn2 = new System.Data.DataColumn();
-            this.dataColumn3 = new System.Data.DataColumn();
             this.tb_sql = new System.Windows.Forms.TextBox();
             this.btn_query = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cb_GameName = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataTable1)).BeginInit();
+            this.cb_DBName = new System.Windows.Forms.ComboBox();
+            this.label_sqlServer = new System.Windows.Forms.Label();
+            this.btn_checkGame = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.btn_AddMoblieGame = new System.Windows.Forms.Button();
+            this.lab_version = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label_databaseuser
@@ -95,7 +94,7 @@
             this.btn_connet.Name = "btn_connet";
             this.btn_connet.Size = new System.Drawing.Size(75, 23);
             this.btn_connet.TabIndex = 4;
-            this.btn_connet.Text = "测试连接";
+            this.btn_connet.Text = "连接";
             this.btn_connet.UseVisualStyleBackColor = true;
             this.btn_connet.Click += new System.EventHandler(this.btn_connet_Click);
             // 
@@ -116,19 +115,12 @@
             this.tb_DBAddr.TabIndex = 1;
             this.tb_DBAddr.Text = ".";
             // 
-            // tb_GameName
-            // 
-            this.tb_GameName.Location = new System.Drawing.Point(173, 66);
-            this.tb_GameName.Name = "tb_GameName";
-            this.tb_GameName.Size = new System.Drawing.Size(280, 21);
-            this.tb_GameName.TabIndex = 7;
-            this.tb_GameName.Visible = false;
-            // 
             // tb_log
             // 
             this.tb_log.Location = new System.Drawing.Point(12, 89);
             this.tb_log.Multiline = true;
             this.tb_log.Name = "tb_log";
+            this.tb_log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tb_log.Size = new System.Drawing.Size(428, 292);
             this.tb_log.TabIndex = 8;
             this.tb_log.TextChanged += new System.EventHandler(this.tb_log_TextChanged);
@@ -141,14 +133,6 @@
             this.label3.Size = new System.Drawing.Size(47, 12);
             this.label3.TabIndex = 9;
             this.label3.Text = "DB_Name";
-            // 
-            // tb_DBName
-            // 
-            this.tb_DBName.Location = new System.Drawing.Point(251, 12);
-            this.tb_DBName.Name = "tb_DBName";
-            this.tb_DBName.Size = new System.Drawing.Size(100, 21);
-            this.tb_DBName.TabIndex = 10;
-            this.tb_DBName.Text = "WHJJPlatformDB";
             // 
             // label4
             // 
@@ -169,37 +153,12 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // dataSet1
-            // 
-            this.dataSet1.DataSetName = "NewDataSet";
-            this.dataSet1.Tables.AddRange(new System.Data.DataTable[] {
-            this.dataTable1});
-            // 
-            // dataTable1
-            // 
-            this.dataTable1.Columns.AddRange(new System.Data.DataColumn[] {
-            this.dataColumn1,
-            this.dataColumn2,
-            this.dataColumn3});
-            this.dataTable1.TableName = "Table1";
-            // 
-            // dataColumn1
-            // 
-            this.dataColumn1.ColumnName = "GameName";
-            // 
-            // dataColumn2
-            // 
-            this.dataColumn2.ColumnName = "GameGameItem";
-            // 
-            // dataColumn3
-            // 
-            this.dataColumn3.ColumnName = "GameKindItem";
-            // 
             // tb_sql
             // 
             this.tb_sql.Location = new System.Drawing.Point(449, 60);
             this.tb_sql.Multiline = true;
             this.tb_sql.Name = "tb_sql";
+            this.tb_sql.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tb_sql.Size = new System.Drawing.Size(347, 286);
             this.tb_sql.TabIndex = 13;
             this.tb_sql.TextChanged += new System.EventHandler(this.tb_sql_TextChanged);
@@ -241,11 +200,90 @@
             this.cb_GameName.Size = new System.Drawing.Size(279, 20);
             this.cb_GameName.TabIndex = 17;
             // 
+            // cb_DBName
+            // 
+            this.cb_DBName.FormattingEnabled = true;
+            this.cb_DBName.Items.AddRange(new object[] {
+            "RYPlatformDB",
+            "WHJJPlatformDB",
+            "THPlatformDB"});
+            this.cb_DBName.Location = new System.Drawing.Point(247, 11);
+            this.cb_DBName.Name = "cb_DBName";
+            this.cb_DBName.Size = new System.Drawing.Size(111, 20);
+            this.cb_DBName.TabIndex = 18;
+            this.cb_DBName.Tag = "";
+            this.cb_DBName.Text = "RYPlatformDB";
+            this.cb_DBName.SelectedIndexChanged += new System.EventHandler(this.cb_DBName_SelectedIndexChanged);
+            // 
+            // label_sqlServer
+            // 
+            this.label_sqlServer.AutoSize = true;
+            this.label_sqlServer.ForeColor = System.Drawing.Color.Red;
+            this.label_sqlServer.Location = new System.Drawing.Point(536, 45);
+            this.label_sqlServer.Name = "label_sqlServer";
+            this.label_sqlServer.Size = new System.Drawing.Size(0, 12);
+            this.label_sqlServer.TabIndex = 19;
+            // 
+            // btn_checkGame
+            // 
+            this.btn_checkGame.Enabled = false;
+            this.btn_checkGame.Location = new System.Drawing.Point(196, 64);
+            this.btn_checkGame.Name = "btn_checkGame";
+            this.btn_checkGame.Size = new System.Drawing.Size(98, 23);
+            this.btn_checkGame.TabIndex = 20;
+            this.btn_checkGame.Text = "检查已有PC游戏";
+            this.btn_checkGame.UseVisualStyleBackColor = true;
+            this.btn_checkGame.Click += new System.EventHandler(this.btn_checkGame_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 388);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(533, 12);
+            this.label7.TabIndex = 21;
+            this.label7.Text = "使用说明：启动程序后请填写数据库地址、选择数据库、填写数据库用户名密码，点击连接数据库。";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(69, 404);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(575, 12);
+            this.label8.TabIndex = 22;
+            this.label8.Text = "然后在GameName中输入游戏中文名称或在下拉框中选择，点击添加游戏，确认SQL语句无误后点击执行即可。";
+            // 
+            // btn_AddMoblieGame
+            // 
+            this.btn_AddMoblieGame.Enabled = false;
+            this.btn_AddMoblieGame.Location = new System.Drawing.Point(346, 64);
+            this.btn_AddMoblieGame.Name = "btn_AddMoblieGame";
+            this.btn_AddMoblieGame.Size = new System.Drawing.Size(95, 23);
+            this.btn_AddMoblieGame.TabIndex = 23;
+            this.btn_AddMoblieGame.Text = "添加手机游戏";
+            this.btn_AddMoblieGame.UseVisualStyleBackColor = true;
+            this.btn_AddMoblieGame.Click += new System.EventHandler(this.btn_AddMoblieGame_Click);
+            // 
+            // lab_version
+            // 
+            this.lab_version.AutoSize = true;
+            this.lab_version.Location = new System.Drawing.Point(670, 404);
+            this.lab_version.Name = "lab_version";
+            this.lab_version.Size = new System.Drawing.Size(0, 12);
+            this.lab_version.TabIndex = 24;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(808, 393);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(809, 421);
+            this.Controls.Add(this.lab_version);
+            this.Controls.Add(this.btn_AddMoblieGame);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.btn_checkGame);
+            this.Controls.Add(this.label_sqlServer);
+            this.Controls.Add(this.cb_DBName);
             this.Controls.Add(this.cb_GameName);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -253,10 +291,8 @@
             this.Controls.Add(this.tb_sql);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.tb_DBName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tb_log);
-            this.Controls.Add(this.tb_GameName);
             this.Controls.Add(this.tb_DBAddr);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_connet);
@@ -264,12 +300,15 @@
             this.Controls.Add(this.tb_dbuser);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label_databaseuser);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
-            this.Text = "OneKeySQL";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "OneKeySQL(Beta)";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataTable1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -284,22 +323,22 @@
         private System.Windows.Forms.Button btn_connet;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tb_DBAddr;
-        private System.Windows.Forms.TextBox tb_GameName;
         private System.Windows.Forms.TextBox tb_log;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox tb_DBName;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button1;
-        private System.Data.DataSet dataSet1;
-        private System.Data.DataTable dataTable1;
-        private System.Data.DataColumn dataColumn1;
-        private System.Data.DataColumn dataColumn2;
-        private System.Data.DataColumn dataColumn3;
         private System.Windows.Forms.TextBox tb_sql;
         private System.Windows.Forms.Button btn_query;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cb_GameName;
+        private System.Windows.Forms.ComboBox cb_DBName;
+        private System.Windows.Forms.Label label_sqlServer;
+        private System.Windows.Forms.Button btn_checkGame;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btn_AddMoblieGame;
+        private System.Windows.Forms.Label lab_version;
     }
 }
 

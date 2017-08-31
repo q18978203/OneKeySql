@@ -20,9 +20,10 @@ namespace OneKeySQL
         String DB_NAME;
         String content;
         String GameName;
-        Dictionary<string, string> dicGG = new Dictionary<string, string>();
-        Dictionary<string, string> dicGK = new Dictionary<string, string>();
-        AutoCompleteStringCollection acsc = new AutoCompleteStringCollection();
+        Dictionary<string, string> dicGG = new Dictionary<string, string>();//GameGameItem.sql
+        Dictionary<string, string> dicGK = new Dictionary<string, string>();//GameKindItem.sql
+        Dictionary<string, string> dicMK = new Dictionary<string, string>();//MobileKindItem.sql
+        Dictionary<string, string> dicMKJJ = new Dictionary<string, string>();//MobileKindItemJJ.sql  精简版手机游戏列表
         public Form1()
         {
             InitializeComponent();
@@ -30,12 +31,15 @@ namespace OneKeySQL
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            String APP_VERSION = "1.0.1";
+            lab_version.Text = "当前程序版本"+APP_VERSION;
         }
 
         private void initSQL(String sqlFilePath, Dictionary<string, string> dic) {
             try {
-                StreamReader sr = new StreamReader(new FileStream(sqlFilePath, FileMode.Open, FileAccess.Read), Encoding.Default);
+                //StreamReader sr = new StreamReader(new FileStream(sqlFilePath, FileMode.Open, FileAccess.Read), Encoding.Default);
+                //StreamReader sr = new StreamReader(sqlFilePath);
+                StringReader sr = new StringReader(sqlFilePath);
                 content = sr.ReadLine();
                 while (null != content)
                 {
@@ -43,7 +47,6 @@ namespace OneKeySQL
                     try
                     {
                         dic.Add(GameName, content);
-                        acsc.Add(GameName);
                     }
                     catch (ArgumentException err)
                     {
@@ -59,11 +62,6 @@ namespace OneKeySQL
             
         }
 
-        private void initAutoComplete() { 
-            this.tb_GameName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.tb_GameName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.tb_GameName.AutoCompleteCustomSource = acsc;
-        }
 
         private void initCBGameName() {
             BindingSource bs = new BindingSource();
@@ -75,10 +73,11 @@ namespace OneKeySQL
 
         private void btn_connet_Click(object sender, EventArgs e)
         {
+            printLog("数据库连接中......");
             DB_USER = tb_dbuser.Text.ToString().Trim();
             DB_PWD = tb_dbpwd.Text.ToString().Trim();
             DB_ADDR = tb_DBAddr.Text.ToString().Trim();
-            DB_NAME = tb_DBName.Text.ToString().Trim();
+            DB_NAME = cb_DBName.Text.ToString().Trim();
             SqlConnection con = new SqlConnection();
             con.ConnectionString = "server="+DB_ADDR+ ";database="+DB_NAME+";uid=" + DB_USER+";pwd="+DB_PWD;
             try
@@ -86,9 +85,15 @@ namespace OneKeySQL
                 con.Open();
                 printLog("连接状态：数据库连接成功！");
                 btn_query.Enabled = true;
+                btn_checkGame.Enabled = true;
+                btn_AddMoblieGame.Enabled = true;
+                label_sqlServer.Text = "当前操作数据库："+DB_NAME;
             }
             catch(SqlException err) {
                 printLog("连接状态：数据库连接失败，错误信息："+err.Message.ToString());
+                btn_checkGame.Enabled = false;
+                btn_query.Enabled = false;
+                btn_AddMoblieGame.Enabled = false;
             }
             con.Close();
         }
@@ -97,10 +102,6 @@ namespace OneKeySQL
             tb_log.Text += DateTime.Now.ToString()+":";
             tb_log.Text += s.Replace("\t","");
             tb_log.Text += "\r\n";
-        }
-        private void printSql(String s)
-        {
-            tb_sql.Text += s.Replace("\t","");
         }
 
         private void tb_log_TextChanged(object sender, EventArgs e)
@@ -112,11 +113,12 @@ namespace OneKeySQL
         private void Form1_Shown(object sender, EventArgs e)
         {
             printLog("初始化中....");
-            initSQL("D:/GameGameItem.sql",dicGG);
-            initSQL("D:/GameKindItem.sql",dicGK);
-            initAutoComplete();
+            initSQL(Properties.Resources.GameGameItem,dicGG);
+            initSQL(Properties.Resources.GameKindItem,dicGK);
+            initSQL(Properties.Resources.MobileKindItem,dicMK);
+            initSQL(Properties.Resources.MobileKindItemJJ,dicMKJJ);
             initCBGameName();
-            printLog("初始化完毕！请测试连接数据库！");
+            printLog("初始化完毕！请连接数据库！");
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -129,7 +131,7 @@ namespace OneKeySQL
                 sql += "\r\n";
                 sql += dicGK[game];
                 printLog(sql);
-                printSql(sql);
+                Common.printSql(tb_sql,sql);
             }
             catch (KeyNotFoundException err)
             { printLog(err.Message.ToString()); }
@@ -143,14 +145,16 @@ namespace OneKeySQL
             con.ConnectionString = "server=" + DB_ADDR + ";database=" + DB_NAME + ";uid=" + DB_USER + ";pwd=" + DB_PWD;
             con.Open();
             sql = tb_sql.Text.ToString().Replace("\r\n"," ");
+            printLog("执行SQL语句："+sql);
             try {
                 int i = new SqlCommand(sql, con).ExecuteNonQuery();
-                printLog(i + "行受影响");
+                printLog("执行成功！ "+i + "行受影响");
+                tb_sql.Text = "";
                 con.Close();
             } catch (SqlException err) {
                 switch (err.Number) {
                     case 2627:
-                        printLog("此游戏已存在数据库中！");
+                        printLog("此游戏已存在数据库"+DB_NAME+"中！请检查SQL语句！");
                         break;
                     default:
                         printLog("执行SQL时遇到错误，错误代码"+err.Number.ToString());
@@ -163,6 +167,70 @@ namespace OneKeySQL
         {
             tb_sql.Select(tb_sql.TextLength, 0);
             tb_sql.ScrollToCaret();
+        }
+
+        private void btn_checkGame_Click(object sender, EventArgs e)
+        {
+            try {
+                String sql;
+                String gameList = "";
+                SqlConnection con = new SqlConnection();
+                con.ConnectionString = "server=" + DB_ADDR + ";database=" + DB_NAME + ";uid=" + DB_USER + ";pwd=" + DB_PWD;
+                con.Open();
+                sql = "select GameName from GameGameItem";
+                SqlCommand com = new SqlCommand(sql, con);
+                SqlDataAdapter sda = new SqlDataAdapter(com);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                DataRow[] arrayDR = dt.Select();
+                foreach (DataRow dr in arrayDR)
+                {
+                    gameList += (dr[0].ToString()+"\r\n");
+                }
+                printLog("当前数据库有以下游戏：\r\n"+gameList);
+                con.Close();
+            }
+            catch (Exception err) {
+                printLog("读取错误："+err.Message);
+            }
+            
+        }
+
+        private void btn_AddMoblieGame_Click(object sender, EventArgs e)
+        {
+
+            String game;
+            String sql;
+            game = cb_GameName.Text.ToString().Trim();
+            
+            try
+            {
+                if (DB_NAME == "WHJJPlatformDB")
+                {
+                    sql = dicMKJJ[game];
+                    sql += "\r\n";
+                    printLog(sql);
+                    Common.printSql(tb_sql, sql);
+                }
+                else {
+                    sql = dicMK[game];
+                    sql += "\r\n";
+                    printLog(sql);
+                    Common.printSql(tb_sql, sql);
+                }
+                
+            }
+            catch (KeyNotFoundException err)
+            { printLog(err.Message.ToString()); }
+        }
+
+        private void cb_DBName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tb_sql.Text = "";
+            btn_AddMoblieGame.Enabled = false;
+            btn_query.Enabled = false;
+            btn_checkGame.Enabled = false;
+            printLog("切换了数据库，请重新连接！");
         }
     }
 }

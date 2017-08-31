@@ -117,4 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="GameGameItem" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GameGameItem.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="GameKindItem" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\GameKindItem.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="MobileKindItem" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MobileKindItem.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="MobileKindItemJJ" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MobileKindItemJJ.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;gb2312</value>
+  </data>
+  <data name="Only" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Only.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
